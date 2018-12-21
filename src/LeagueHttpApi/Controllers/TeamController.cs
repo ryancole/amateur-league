@@ -2,8 +2,8 @@
 
 namespace LeagueHttpApi.Controllers
 {
-    [ApiController, Route("values")]
-    public class ValuesController : ControllerBase
+    [ApiController, Route("team")]
+    public class TeamController : ControllerBase
     {
         #region Methods
 

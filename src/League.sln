@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueHttpApi", "LeagueHttpApi\LeagueHttpApi.csproj", "{ADE07582-4265-4394-9888-FEB14F76A198}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueFunctions", "LeagueFunctions\LeagueFunctions.csproj", "{FCFB987F-174C-4A42-BF2E-E4AC2CCC34F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueFunctions", "LeagueFunctions\LeagueFunctions.csproj", "{FCFB987F-174C-4A42-BF2E-E4AC2CCC34F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League.Entity", "League.Entity\League.Entity.csproj", "{2B8D9747-B958-4DF5-A975-BBCB148D94AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League.Data.Sql", "League.Data.Sql\League.Data.Sql.csproj", "{60F7605B-268F-4A14-96EB-979D7258A086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{FCFB987F-174C-4A42-BF2E-E4AC2CCC34F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFB987F-174C-4A42-BF2E-E4AC2CCC34F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFB987F-174C-4A42-BF2E-E4AC2CCC34F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8D9747-B958-4DF5-A975-BBCB148D94AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8D9747-B958-4DF5-A975-BBCB148D94AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8D9747-B958-4DF5-A975-BBCB148D94AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8D9747-B958-4DF5-A975-BBCB148D94AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60F7605B-268F-4A14-96EB-979D7258A086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60F7605B-268F-4A14-96EB-979D7258A086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60F7605B-268F-4A14-96EB-979D7258A086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60F7605B-268F-4A14-96EB-979D7258A086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
