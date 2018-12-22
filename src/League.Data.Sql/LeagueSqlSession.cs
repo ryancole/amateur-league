@@ -1,11 +1,12 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
+using League.Data.Sql.Interface;
 using League.Data.Sql.Repository;
 
 namespace League.Data.Sql
 {
-    public class LeagueSqlSession
+    public class LeagueSqlSession : ILeagueSqlSession
     {
         private SqlConnection m_connection;
         private SqlTransaction m_transaction;

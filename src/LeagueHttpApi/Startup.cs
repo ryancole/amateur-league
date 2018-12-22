@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using League.Data.Sql;
+using League.Data.Sql.Interface;
 
 namespace LeagueHttpApi
 {
@@ -26,6 +31,9 @@ namespace LeagueHttpApi
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services
+                .AddScoped<ILeagueSqlSession, LeagueSqlSession>(CreateSqlConnection);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -41,6 +49,13 @@ namespace LeagueHttpApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        private LeagueSqlSession CreateSqlConnection(IServiceProvider provider)
+        {
+            var connectionString = Configuration.GetValue<string>("ConnectionStrings:Sql");
+
+            return new LeagueSqlSession(connectionString);
         }
 
         #endregion

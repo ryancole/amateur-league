@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace League.Entity
+namespace League.Entity.Database
 {
-    public class Team
+    public class LeagueTeam
     {
         #region Properties
 
