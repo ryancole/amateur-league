@@ -2,13 +2,11 @@
 
 namespace League.Entity.Database
 {
-    public class LeagueTeam
+    public class RegularSeasonWeek
     {
         #region Properties
 
         public long Id { get; set; }
-
-        public string Name { get; set; }
 
         public DateTime DateCreated { get; set; }
 

@@ -6,7 +6,7 @@ namespace League.Entity.WebApi
     {
         #region Properties
 
-        public LeagueTeam Team { get; set; }
+        public Team Team { get; set; }
 
         #endregion
     }

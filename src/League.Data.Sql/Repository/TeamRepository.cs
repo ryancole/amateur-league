@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using League.Entity.Database;
 using League.Data.Sql.Utility;
@@ -18,7 +19,7 @@ namespace League.Data.Sql.Repository
 
         #region Methods
 
-        public async Task<LeagueTeam> GetByIdAsync(long id)
+        public async Task<Team> GetByIdAsync(long id)
         {
             using (var cmd = m_session.CreateCommand())
             {
@@ -32,7 +33,7 @@ namespace League.Data.Sql.Repository
                 {
                     if (await reader.ReadAsync())
                     {
-                        var result = await reader.MapToTypeAsync<LeagueTeam>();
+                        var result = await reader.MapToTypeAsync<Team>();
 
                         return result;
                     }
@@ -40,6 +41,29 @@ namespace League.Data.Sql.Repository
             }
 
             throw new Exception($"team not found: {id}");
+        }
+
+        public async Task<IReadOnlyCollection<Team>> GetAllAsync()
+        {
+            var results = new List<Team>();
+
+            using (var cmd = m_session.CreateCommand())
+            {
+                cmd.CommandText = @"SELECT *
+                                    FROM Team";
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var result = await reader.MapToTypeAsync<Team>();
+
+                        results.Add(result);
+                    }
+                }
+            }
+
+            return results.AsReadOnly();
         }
 
         #endregion

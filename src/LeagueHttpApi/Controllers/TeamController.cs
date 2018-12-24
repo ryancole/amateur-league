@@ -19,17 +19,30 @@ namespace LeagueHttpApi.Controllers
 
         #region Methods
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var teams = await m_db.Teams.GetAllAsync();
+
+            var response = new TeamGetAllResponse
+            {
+                Teams = teams
+            };
+
+            return Ok(response);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(long id)
         {
             var team = await m_db.Teams.GetByIdAsync(id);
 
-            var result = new TeamGetByIdResponse
+            var response = new TeamGetByIdResponse
             {
                 Team = team
             };
 
-            return Ok(result);
+            return Ok(response);
         }
 
         #endregion
