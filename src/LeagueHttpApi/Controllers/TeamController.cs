@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using League.Entity.WebApi;
+using League.Entity.Database;
 using League.Data.Sql.Interface;
 
 namespace LeagueHttpApi.Controllers
@@ -18,6 +19,26 @@ namespace LeagueHttpApi.Controllers
         }
 
         #region Methods
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] TeamCreateRequest request)
+        {
+            var parameters = new Team
+            {
+                Name = request.Name
+            };
+
+            var team = await m_db.Teams.CreateAsync(parameters);
+
+            m_db.Commit();
+
+            var response = new TeamCreateResponse
+            {
+                Team = team
+            };
+
+            return Ok(response);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()

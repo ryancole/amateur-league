@@ -19,6 +19,30 @@ namespace League.Data.Sql.Repository
 
         #region Methods
 
+        public async Task<Team> CreateAsync(Team team)
+        {
+            using (var cmd = m_session.CreateCommand())
+            {
+                cmd.CommandText = @"INSERT INTO Team (Name)
+                                    OUTPUT inserted.*
+                                    VALUES (@name)";
+
+                cmd.Parameters.Add("name", SqlDbType.Text).Value = team.Name;
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        var result = await reader.MapToTypeAsync<Team>();
+
+                        return result;
+                    }
+                }
+            }
+
+            throw new Exception("failed to create team");
+        }
+
         public async Task<Team> GetByIdAsync(long id)
         {
             using (var cmd = m_session.CreateCommand())
