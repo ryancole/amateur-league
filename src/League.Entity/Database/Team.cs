@@ -13,5 +13,14 @@ namespace League.Entity.Database
         public DateTime DateCreated { get; set; }
 
         #endregion
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #endregion
     }
 }

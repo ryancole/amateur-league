@@ -22,7 +22,7 @@ namespace LeagueAdminTool.Utility
 
         #region Methods
 
-        public static async Task<TeamCreateResponse> CreateAsync(TeamCreateRequest request)
+        public static async Task<TeamCreateResponse> CreateTeamAsync(TeamCreateRequest request)
         {
             var response = await m_client.PostAsync(
                 "/team",
