@@ -14,7 +14,9 @@ namespace League.Data.Sql.Interface
 
         TeamRepository Teams { get; }
 
-        RegularSeasonWeekRepository RegularSeasonWeeks { get; }
+        SeasonRepository Seasons { get; }
+
+        SeasonWeekRepository SeasonWeeks { get; }
 
         #endregion
     }

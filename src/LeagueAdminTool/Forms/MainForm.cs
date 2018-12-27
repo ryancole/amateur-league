@@ -64,11 +64,11 @@ namespace LeagueAdminTool.Forms
 
         private void GenerateRegularSeasonWeeks(int amount)
         {
-            var schedule = new Dictionary<int, IEnumerable<Tuple<long, long>>>(amount);
+            var schedule = new Dictionary<int, IEnumerable<long[]>>(amount);
 
             for (var week = 0; week < amount; week++)
             {
-                var currentWeek = new List<Tuple<long, long>>();
+                var currentWeek = new List<long[]>();
                 var previousWeeks = FlattenSchedule(schedule.Values.ToArray());
 
                 foreach (var team in m_teams)
@@ -80,13 +80,15 @@ namespace LeagueAdminTool.Forms
                         continue;
                     }
 
+                    // cant play self, cant play somebody already playing this
+                    // week, cant play somebody i already played this season
                     var opponent = m_teams
-                        .Where(t => t.Id != team.Id) // cant play self
-                        .Where(t => currentWeek.Any(match => match.Contains(t.Id)) == false) // cant play somebody already playing this week
-                        .Where(t => previousWeeks[team.Id].Contains(t.Id) == false) // cant play somebody i already played this season
+                        .Where(t => t.Id != team.Id)
+                        .Where(t => currentWeek.Any(match => match.Contains(t.Id)) == false)
+                        .Where(t => previousWeeks[team.Id].Contains(t.Id) == false)
                         .First();
 
-                    currentWeek.Add(new Tuple<long, long>(team.Id, opponent.Id));
+                    currentWeek.Add(new long[] { team.Id, opponent.Id });
                 }
 
                 schedule[week] = currentWeek;
@@ -95,7 +97,7 @@ namespace LeagueAdminTool.Forms
             propertyGrid1.SelectedObject = new { Schedule = JsonConvert.SerializeObject(schedule) };
         }
 
-        private IDictionary<long, ICollection<long>> FlattenSchedule(IEnumerable<Tuple<long, long>>[] weeks)
+        private IDictionary<long, ICollection<long>> FlattenSchedule(IEnumerable<long[]>[] weeks)
         {
             var result = new Dictionary<long, ICollection<long>>();
 
@@ -108,8 +110,11 @@ namespace LeagueAdminTool.Forms
             {
                 foreach (var match in week)
                 {
-                    result[match.Item1].Add(match.Item2);
-                    result[match.Item2].Add(match.Item1);
+                    var a = match[0];
+                    var b = match[1];
+
+                    result[a].Add(b);
+                    result[b].Add(a);
                 }
             }
 
