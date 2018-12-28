@@ -36,13 +36,19 @@
             this.dataRegularSeasonWeeks = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnGenerateRegSeasonWeeks = new System.Windows.Forms.Button();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnCreateRandomSeason = new System.Windows.Forms.Button();
+            this.dataSeasons = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTeams)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataRegularSeasonWeeks)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSeasons)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -87,7 +93,7 @@
             // 
             this.btnCreateRandomTeam.Location = new System.Drawing.Point(6, 19);
             this.btnCreateRandomTeam.Name = "btnCreateRandomTeam";
-            this.btnCreateRandomTeam.Size = new System.Drawing.Size(103, 23);
+            this.btnCreateRandomTeam.Size = new System.Drawing.Size(110, 23);
             this.btnCreateRandomTeam.TabIndex = 0;
             this.btnCreateRandomTeam.Text = "Create Random";
             this.btnCreateRandomTeam.UseVisualStyleBackColor = true;
@@ -132,19 +138,61 @@
             this.btnGenerateRegSeasonWeeks.UseVisualStyleBackColor = true;
             this.btnGenerateRegSeasonWeeks.Click += new System.EventHandler(this.btnGenerateRegSeasonWeeks_Click);
             // 
-            // propertyGrid1
+            // groupBox5
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(12, 635);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(427, 299);
-            this.propertyGrid1.TabIndex = 4;
+            this.groupBox5.Controls.Add(this.dataSeasons);
+            this.groupBox5.Location = new System.Drawing.Point(445, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(299, 283);
+            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Seasons";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnCreateRandomSeason);
+            this.groupBox6.Location = new System.Drawing.Point(750, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(122, 283);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Season Commands";
+            // 
+            // btnCreateRandomSeason
+            // 
+            this.btnCreateRandomSeason.Location = new System.Drawing.Point(6, 19);
+            this.btnCreateRandomSeason.Name = "btnCreateRandomSeason";
+            this.btnCreateRandomSeason.Size = new System.Drawing.Size(110, 23);
+            this.btnCreateRandomSeason.TabIndex = 0;
+            this.btnCreateRandomSeason.Text = "Create Random";
+            this.btnCreateRandomSeason.UseVisualStyleBackColor = true;
+            this.btnCreateRandomSeason.Click += new System.EventHandler(this.btnCreateRandomSeason_Click);
+            // 
+            // dataSeasons
+            // 
+            this.dataSeasons.AllowUserToAddRows = false;
+            this.dataSeasons.AllowUserToDeleteRows = false;
+            this.dataSeasons.AllowUserToOrderColumns = true;
+            this.dataSeasons.AllowUserToResizeColumns = false;
+            this.dataSeasons.AllowUserToResizeRows = false;
+            this.dataSeasons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataSeasons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataSeasons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataSeasons.Location = new System.Drawing.Point(3, 16);
+            this.dataSeasons.Name = "dataSeasons";
+            this.dataSeasons.ReadOnly = true;
+            this.dataSeasons.RowHeadersVisible = false;
+            this.dataSeasons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataSeasons.Size = new System.Drawing.Size(293, 264);
+            this.dataSeasons.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 946);
-            this.Controls.Add(this.propertyGrid1);
+            this.ClientSize = new System.Drawing.Size(886, 946);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -159,6 +207,9 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataRegularSeasonWeeks)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSeasons)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,7 +224,10 @@
         private System.Windows.Forms.DataGridView dataRegularSeasonWeeks;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnGenerateRegSeasonWeeks;
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnCreateRandomSeason;
+        private System.Windows.Forms.DataGridView dataSeasons;
     }
 }
 

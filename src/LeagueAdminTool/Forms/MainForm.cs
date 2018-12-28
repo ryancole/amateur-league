@@ -3,8 +3,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
 using League.Entity.WebApi;
 using League.Entity.Database;
 
@@ -15,6 +13,7 @@ namespace LeagueAdminTool.Forms
     public partial class MainForm : Form
     {
         private IReadOnlyCollection<Team> m_teams;
+        private IReadOnlyCollection<Season> m_seasons;
 
         public MainForm()
         {
@@ -26,6 +25,7 @@ namespace LeagueAdminTool.Forms
         private void MainForm_Shown(object sender, EventArgs e)
         {
             RefreshTeams();
+            RefreshSeasons();
         }
 
         private void btnCreateRandomTeam_Click(object sender, EventArgs e)
@@ -38,6 +38,11 @@ namespace LeagueAdminTool.Forms
             GenerateRegularSeasonWeeks(6);
         }
 
+        private void btnCreateRandomSeason_Click(object sender, EventArgs e)
+        {
+            CreateRandomSeason();
+        }
+
         #endregion
 
         #region Methods
@@ -48,6 +53,21 @@ namespace LeagueAdminTool.Forms
 
             m_teams = teams.Teams;
             dataTeams.DataSource = m_teams;
+        }
+
+        private async void RefreshSeasons()
+        {
+            var seasons = await WebApiClient.GetAllSeasonsAsync();
+
+            m_seasons = seasons.Seasons;
+            dataSeasons.DataSource = m_seasons;
+        }
+
+        private async void CreateRandomSeason()
+        {
+            var response = await WebApiClient.CreateSeasonAsync();
+
+            RefreshSeasons();
         }
 
         private async void CreateRandomTeam()
@@ -93,8 +113,6 @@ namespace LeagueAdminTool.Forms
 
                 schedule[week] = currentWeek;
             }
-
-            propertyGrid1.SelectedObject = new { Schedule = JsonConvert.SerializeObject(schedule) };
         }
 
         private IDictionary<long, ICollection<long>> FlattenSchedule(IEnumerable<long[]>[] weeks)

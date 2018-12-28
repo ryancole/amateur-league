@@ -35,6 +35,19 @@ namespace LeagueAdminTool.Utility
             return JsonConvert.DeserializeObject<TeamCreateResponse>(content);
         }
 
+        public static async Task<SeasonCreateResponse> CreateSeasonAsync()
+        {
+            var response = await m_client.PostAsync(
+                "/season",
+                new StringContent(string.Empty, Encoding.UTF8, "application/json"));
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<SeasonCreateResponse>(content);
+        }
+
         public static async Task<TeamGetAllResponse> GetAllTeamsAsync()
         {
             var response = await m_client.GetAsync("/team");
@@ -44,6 +57,17 @@ namespace LeagueAdminTool.Utility
             var content = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<TeamGetAllResponse>(content);
+        }
+
+        public static async Task<SeasonGetAllResponse> GetAllSeasonsAsync()
+        {
+            var response = await m_client.GetAsync("/season");
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<SeasonGetAllResponse>(content);
         }
 
         #endregion
