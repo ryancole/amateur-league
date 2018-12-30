@@ -1,0 +1,17 @@
+Transform: AWS::Serverless-2016-10-31
+Description: league lambda functions
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  GraphqlFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: graphql-function/
+      Handler: dist.handler
+      Runtime: nodejs8.10
+      Events:
+        GraphqlRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
