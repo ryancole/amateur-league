@@ -3,14 +3,17 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
+    "aws-sdk": "^2.382.0",
     "graphql": "^14.0.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
     "@types/graphql": "^14.0.3",
+    "@types/node": "^10.12.18",
     "typescript": "^3.2.2"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "watch": "tsc --build --watch"
   }
 }
