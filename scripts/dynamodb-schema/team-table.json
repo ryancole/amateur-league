@@ -1,0 +1,19 @@
+{
+  "TableName": "Teams",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "Name",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "Name",
+      "KeyType": "HASH"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 1,
+    "WriteCapacityUnits": 1
+  }
+}
