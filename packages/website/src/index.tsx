@@ -1,4 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Router from "./router";
 
-ReactDOM.render(<p>Hi</p>, document.getElementById("container"));
+ReactDOM.render(<Router />, document.getElementById("container"));
