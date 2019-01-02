@@ -1,7 +1,7 @@
 import { graphql } from "graphql";
 import schema from "./graphql/schema";
 
-export const handler: AWSLambda.Handler = async (event, context, callback) => {
+export const handler: AWSLambda.Handler = async (event, context) => {
   // execute the graphql query
   const result = await graphql(schema, event.body);
 
@@ -12,5 +12,5 @@ export const handler: AWSLambda.Handler = async (event, context, callback) => {
   };
 
   // forward the response to lambda host
-  callback(null, response);
+  return response;
 };
