@@ -13,5 +13,5 @@ Resources:
         GraphqlRequest:
           Type: Api
           Properties:
-            Path: /graphql
+            Path: /
             Method: post
