@@ -2,7 +2,7 @@
 
 namespace League.Entity.Database
 {
-    public class SeasonWeek
+    public class SeasonDivision
     {
         #region Properties
 

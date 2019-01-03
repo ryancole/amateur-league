@@ -13,7 +13,8 @@ namespace League.Data.Sql
 
         private TeamRepository m_teamRepository;
         private SeasonRepository m_seasonRepository;
-        private SeasonWeekRepository m_seasonWeekRepository;
+        private SeasonDivisionRepository m_seasonDivisionRepository;
+        private SeasonDivisionMembershipRepository m_seasonDivisionMembershipRepository;
 
         public LeagueSqlSession(string connectionString)
         {
@@ -79,16 +80,29 @@ namespace League.Data.Sql
             }
         }
 
-        public SeasonWeekRepository SeasonWeeks
+        public SeasonDivisionRepository SeasonDivisions
         {
             get
             {
-                if (m_seasonWeekRepository == null)
+                if (m_seasonDivisionRepository == null)
                 {
-                    m_seasonWeekRepository = new SeasonWeekRepository(this);
+                    m_seasonDivisionRepository = new SeasonDivisionRepository(this);
                 }
 
-                return m_seasonWeekRepository;
+                return m_seasonDivisionRepository;
+            }
+        }
+
+        public SeasonDivisionMembershipRepository SeasonDivisionMemberships
+        {
+            get
+            {
+                if (m_seasonDivisionMembershipRepository == null)
+                {
+                    m_seasonDivisionMembershipRepository = new SeasonDivisionMembershipRepository(this);
+                }
+
+                return m_seasonDivisionMembershipRepository;
             }
         }
 

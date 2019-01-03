@@ -12,8 +12,6 @@ namespace League.Entity.Database
 
         public long TeamTwoId { get; set; }
 
-        public long SeasonWeekId { get; set; }
-
         public DateTime DateCreated { get; set; }
 
         #endregion
