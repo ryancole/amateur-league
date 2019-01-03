@@ -1,8 +1,15 @@
 import AWS from "aws-sdk";
 
-const documents = new AWS.DynamoDB.DocumentClient({ region: "us-east-2" });
+AWS.config.update({ region: "us-east-2" });
 
 export async function fetchAll() {
-  const response = await documents.scan({ TableName: "Teams" }).promise();
-  return response.Items;
+  try {
+    const client = new AWS.DynamoDB.DocumentClient({
+      endpoint: "http://localhost:9000"
+    });
+    const query = await client.query({ TableName: "Teams" }).promise();
+    console.log(query.Items);
+  } catch (e) {
+    console.log({ e });
+  }
 }

@@ -1,3 +1,5 @@
 dist/
 .aws-sam/
 node_modules/
+
+shared-local-instance.db

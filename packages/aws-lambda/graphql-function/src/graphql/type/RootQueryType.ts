@@ -9,7 +9,7 @@ export default new GraphQLObjectType({
   fields: {
     teams: {
       type: new GraphQLList(TeamType),
-      resolve: () => TeamApi.fetchAll()
+      resolve: TeamApi.fetchAll
     }
   }
 });
