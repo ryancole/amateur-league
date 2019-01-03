@@ -3,6 +3,18 @@ Description: league lambda functions
 AWSTemplateFormatVersion: "2010-09-09"
 
 Resources:
+  QueryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: query-function/
+      Handler: dist.handler
+      Runtime: nodejs8.10
+      Events:
+        QueryRequest:
+          Type: Api
+          Properties:
+            Path: /query
+            Method: post
   GraphqlFunction:
     Type: AWS::Serverless::Function
     Properties:
