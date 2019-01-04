@@ -66,7 +66,11 @@ namespace LeagueApiFunction.Functions
         /// </summary>
         private static Dictionary<LeagueApiRequestCommand, Func<string, Task<object>>> CommandHandlerMap = new Dictionary<LeagueApiRequestCommand, Func<string, Task<object>>>
         {
-            { LeagueApiRequestCommand.TeamGetAll, TeamHandlers.GetAll }
+            { LeagueApiRequestCommand.TeamCreate, TeamHandlers.Create },
+            { LeagueApiRequestCommand.TeamGetAll, TeamHandlers.GetAll },
+
+            { LeagueApiRequestCommand.SeasonCreate, SeasonHandlers.Create },
+            { LeagueApiRequestCommand.SeasonGetAll, SeasonHandlers.GetAll }
         };
 
         #endregion

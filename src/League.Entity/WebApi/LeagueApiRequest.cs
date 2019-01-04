@@ -22,9 +22,11 @@
 
         Unknown,
 
-        TeamGet,
         TeamGetAll,
-        TeamCreate
+        TeamCreate,
+
+        SeasonGetAll,
+        SeasonCreate
 
         #endregion
     }

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using League.Entity.WebApi;
+using League.Entity.WebApi.Response;
+using League.Entity.WebApi.Parameters;
 
 namespace LeagueAdminTool.Utility
 {
@@ -22,52 +24,56 @@ namespace LeagueAdminTool.Utility
 
         #region Methods
 
-        public static async Task<TeamCreateResponse> CreateTeamAsync(TeamCreateRequest request)
+        private static async Task<string> SubmitCommand(LeagueApiRequestCommand command, object parameters = null)
         {
-            var response = await m_client.PostAsync(
-                "/team",
-                new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
+            var request = new LeagueApiRequest
+            {
+                Command = command,
+                SerializedParameters = JsonConvert.SerializeObject(parameters)
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+            var response = await m_client.PostAsync("/", content);
 
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
+            var body = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<TeamCreateResponse>(content);
+            return body;
+        }
+
+        public static async Task<TeamCreateResponse> CreateTeamAsync(TeamCreateParameters request)
+        {
+            var parameters = new TeamCreateParameters
+            {
+                Name = request.Name
+            };
+
+            var response = await SubmitCommand(LeagueApiRequestCommand.TeamCreate, parameters);
+
+            return JsonConvert.DeserializeObject<TeamCreateResponse>(response);
         }
 
         public static async Task<SeasonCreateResponse> CreateSeasonAsync()
         {
-            var response = await m_client.PostAsync(
-                "/season",
-                new StringContent(string.Empty, Encoding.UTF8, "application/json"));
+            var response = await SubmitCommand(LeagueApiRequestCommand.SeasonCreate);
 
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<SeasonCreateResponse>(content);
+            return JsonConvert.DeserializeObject<SeasonCreateResponse>(response);
         }
 
         public static async Task<TeamGetAllResponse> GetAllTeamsAsync()
         {
-            var response = await m_client.GetAsync("/team");
+            var response = await SubmitCommand(LeagueApiRequestCommand.TeamGetAll);
 
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<TeamGetAllResponse>(content);
+            return JsonConvert.DeserializeObject<TeamGetAllResponse>(response);
         }
 
         public static async Task<SeasonGetAllResponse> GetAllSeasonsAsync()
         {
-            var response = await m_client.GetAsync("/season");
+            var response = await SubmitCommand(LeagueApiRequestCommand.SeasonGetAll);
 
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<SeasonGetAllResponse>(content);
+            return JsonConvert.DeserializeObject<SeasonGetAllResponse>(response);
         }
 
         #endregion

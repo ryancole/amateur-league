@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using League.Entity.WebApi;
+using League.Entity.WebApi.Parameters;
 using League.Entity.Database;
 
 using LeagueAdminTool.Utility;
@@ -72,7 +72,7 @@ namespace LeagueAdminTool.Forms
 
         private async void CreateRandomTeam()
         {
-            var request = new TeamCreateRequest
+            var request = new TeamCreateParameters
             {
                 Name = RandomWord.Generate(8)
             };

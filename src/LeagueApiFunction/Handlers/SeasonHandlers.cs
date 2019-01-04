@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-
 using League.Data.Sql;
 using League.Entity.WebApi.Response;
-using League.Entity.WebApi.Parameters;
-using League.Entity.Database;
 
 namespace LeagueApiFunction.Handlers
 {
-    public static class TeamHandlers
+    public static class SeasonHandlers
     {
         private static string connectionString;
 
-        static TeamHandlers()
+        static SeasonHandlers()
         {
             connectionString = Environment.GetEnvironmentVariable("SqlConnectionString");
         }
@@ -25,16 +21,11 @@ namespace LeagueApiFunction.Handlers
         {
             var session = new LeagueSqlSession(connectionString);
 
-            var deserialized = JsonConvert.DeserializeObject<TeamCreateParameters>(parameters);
+            var season = await session.Seasons.CreateAsync();
 
-            var team = await session.Teams.CreateAsync(new Team
+            return new SeasonCreateResponse
             {
-                Name = deserialized.Name
-            });
-
-            return new TeamCreateResponse
-            {
-                Team = team
+                Season = season
             };
         }
 
@@ -42,11 +33,11 @@ namespace LeagueApiFunction.Handlers
         {
             var session = new LeagueSqlSession(connectionString);
 
-            var teams = await session.Teams.GetAllAsync();
+            var seasons = await session.Seasons.GetAllAsync();
 
-            return new TeamGetAllResponse
+            return new SeasonGetAllResponse
             {
-                Teams = teams
+                Seasons = seasons
             };
         }
 
