@@ -1,16 +1,10 @@
 ﻿using System.Collections.Generic;
-
 using League.Entity.Database;
 
-namespace League.Entity.WebApi
+namespace League.Entity.WebApi.Response
 {
     public class TeamGetAllResponse
     {
-        public TeamGetAllResponse()
-        {
-            Teams = new List<Team>();
-        }
-
         #region Properties
 
         public IReadOnlyCollection<Team> Teams { get; set; }

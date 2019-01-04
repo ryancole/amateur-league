@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 using League.Data.Sql.Interface;
@@ -18,12 +19,19 @@ namespace League.Data.Sql
 
         public LeagueSqlSession(string connectionString)
         {
-            // open database connection
-            m_connection = new SqlConnection(connectionString);
-            m_connection.Open();
+            try
+            {
+                // open database connection
+                m_connection = new SqlConnection(connectionString);
+                m_connection.Open();
 
-            // create explicit transaction
-            m_transaction = m_connection.BeginTransaction();
+                // create explicit transaction
+                m_transaction = m_connection.BeginTransaction();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         ~LeagueSqlSession()
