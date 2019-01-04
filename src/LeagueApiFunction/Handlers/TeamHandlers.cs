@@ -32,6 +32,8 @@ namespace LeagueApiFunction.Handlers
                 Name = deserialized.Name
             });
 
+            session.Commit();
+
             return new TeamCreateResponse
             {
                 Team = team

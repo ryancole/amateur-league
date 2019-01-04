@@ -23,6 +23,8 @@ namespace LeagueApiFunction.Handlers
 
             var season = await session.Seasons.CreateAsync();
 
+            session.Commit();
+
             return new SeasonCreateResponse
             {
                 Season = season

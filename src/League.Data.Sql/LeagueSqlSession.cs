@@ -19,19 +19,12 @@ namespace League.Data.Sql
 
         public LeagueSqlSession(string connectionString)
         {
-            try
-            {
-                // open database connection
-                m_connection = new SqlConnection(connectionString);
-                m_connection.Open();
+            // open database connection
+            m_connection = new SqlConnection(connectionString);
+            m_connection.Open();
 
-                // create explicit transaction
-                m_transaction = m_connection.BeginTransaction();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            // create explicit transaction
+            m_transaction = m_connection.BeginTransaction();
         }
 
         ~LeagueSqlSession()

@@ -14,12 +14,13 @@ namespace LeagueAdminTool.Utility
 {
     public static class WebApiClient
     {
+        private static readonly Uri m_url;
         private static readonly HttpClient m_client;
 
         static WebApiClient()
         {
+            m_url = new Uri(ConfigurationManager.AppSettings["api"]);
             m_client = new HttpClient();
-            m_client.BaseAddress = new Uri(ConfigurationManager.AppSettings["api"]);
         }
 
         #region Methods
@@ -29,12 +30,17 @@ namespace LeagueAdminTool.Utility
             var request = new LeagueApiRequest
             {
                 Command = command,
-                SerializedParameters = JsonConvert.SerializeObject(parameters)
+                SerializedParameters = parameters == null ? null : JsonConvert.SerializeObject(parameters)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
-            var response = await m_client.PostAsync("/", content);
+            var content = new StringContent(JsonConvert.SerializeObject(request, settings), Encoding.UTF8, "application/json");
+
+            var response = await m_client.PostAsync(m_url, content);
 
             response.EnsureSuccessStatusCode();
 
