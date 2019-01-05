@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 
 using League.Data.Sql.Interface;
@@ -7,8 +6,10 @@ using League.Data.Sql.Repository;
 
 namespace League.Data.Sql
 {
-    public class LeagueSqlSession : ILeagueSqlSession
+    public class LeagueSqlSession : ILeagueSqlSession, IDisposable
     {
+        private bool m_disposed;
+
         private SqlConnection m_connection;
         private SqlTransaction m_transaction;
 
@@ -19,20 +20,14 @@ namespace League.Data.Sql
 
         public LeagueSqlSession(string connectionString)
         {
+            m_disposed = false;
+
             // open database connection
             m_connection = new SqlConnection(connectionString);
             m_connection.Open();
 
             // create explicit transaction
             m_transaction = m_connection.BeginTransaction();
-        }
-
-        ~LeagueSqlSession()
-        {
-            if (m_connection.State != ConnectionState.Closed)
-            {
-                m_connection.Close();
-            }
         }
 
         #region Methods
@@ -105,6 +100,26 @@ namespace League.Data.Sql
 
                 return m_seasonDivisionMembershipRepository;
             }
+        }
+
+        #endregion
+
+        #region IDisposable and Cleanup
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposeManagedResources)
+        {
+            if (disposeManagedResources && !m_disposed)
+            {
+                m_connection.Close();
+            }
+
+            m_disposed = true;
         }
 
         #endregion

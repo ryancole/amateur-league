@@ -19,28 +19,30 @@ namespace LeagueApiFunction.Handlers
 
         public static async Task<object> Create(string parameters)
         {
-            var session = new LeagueSqlSession(connectionString);
-
-            var season = await session.Seasons.CreateAsync();
-
-            session.Commit();
-
-            return new SeasonCreateResponse
+            using (var session = new LeagueSqlSession(connectionString))
             {
-                Season = season
-            };
+                var season = await session.Seasons.CreateAsync();
+
+                session.Commit();
+
+                return new SeasonCreateResponse
+                {
+                    Season = season
+                };
+            }
         }
 
         public static async Task<object> GetAll(string parameters)
         {
-            var session = new LeagueSqlSession(connectionString);
-
-            var seasons = await session.Seasons.GetAllAsync();
-
-            return new SeasonGetAllResponse
+            using (var session = new LeagueSqlSession(connectionString))
             {
-                Seasons = seasons
-            };
+                var seasons = await session.Seasons.GetAllAsync();
+
+                return new SeasonGetAllResponse
+                {
+                    Seasons = seasons
+                };
+            }
         }
 
         #endregion

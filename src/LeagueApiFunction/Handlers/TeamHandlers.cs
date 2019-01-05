@@ -23,33 +23,35 @@ namespace LeagueApiFunction.Handlers
 
         public static async Task<object> Create(string parameters)
         {
-            var session = new LeagueSqlSession(connectionString);
-
-            var deserialized = JsonConvert.DeserializeObject<TeamCreateParameters>(parameters);
-
-            var team = await session.Teams.CreateAsync(new Team
+            using (var session = new LeagueSqlSession(connectionString))
             {
-                Name = deserialized.Name
-            });
+                var deserialized = JsonConvert.DeserializeObject<TeamCreateParameters>(parameters);
 
-            session.Commit();
+                var team = await session.Teams.CreateAsync(new Team
+                {
+                    Name = deserialized.Name
+                });
 
-            return new TeamCreateResponse
-            {
-                Team = team
-            };
+                session.Commit();
+
+                return new TeamCreateResponse
+                {
+                    Team = team
+                };
+            }
         }
 
         public static async Task<object> GetAll(string parameters)
         {
-            var session = new LeagueSqlSession(connectionString);
-
-            var teams = await session.Teams.GetAllAsync();
-
-            return new TeamGetAllResponse
+            using (var session = new LeagueSqlSession(connectionString))
             {
-                Teams = teams
-            };
+                var teams = await session.Teams.GetAllAsync();
+
+                return new TeamGetAllResponse
+                {
+                    Teams = teams
+                };
+            }
         }
 
         #endregion
