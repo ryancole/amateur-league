@@ -35,13 +35,18 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dataSeasons = new System.Windows.Forms.DataGridView();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnAddSelectedTeams = new System.Windows.Forms.Button();
             this.btnCreateRandomSeason = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dataSeasonMemberships = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTeams)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSeasons)).BeginInit();
             this.groupBox6.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSeasonMemberships)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -113,15 +118,18 @@
             this.dataSeasons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataSeasons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataSeasons.Location = new System.Drawing.Point(3, 16);
+            this.dataSeasons.MultiSelect = false;
             this.dataSeasons.Name = "dataSeasons";
             this.dataSeasons.ReadOnly = true;
             this.dataSeasons.RowHeadersVisible = false;
             this.dataSeasons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataSeasons.Size = new System.Drawing.Size(293, 81);
             this.dataSeasons.TabIndex = 1;
+            this.dataSeasons.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataSeasons_RowEnter);
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.btnAddSelectedTeams);
             this.groupBox6.Controls.Add(this.btnCreateRandomSeason);
             this.groupBox6.Location = new System.Drawing.Point(317, 118);
             this.groupBox6.Name = "groupBox6";
@@ -129,6 +137,16 @@
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Season Commands";
+            // 
+            // btnAddSelectedTeams
+            // 
+            this.btnAddSelectedTeams.Location = new System.Drawing.Point(6, 48);
+            this.btnAddSelectedTeams.Name = "btnAddSelectedTeams";
+            this.btnAddSelectedTeams.Size = new System.Drawing.Size(110, 23);
+            this.btnAddSelectedTeams.TabIndex = 1;
+            this.btnAddSelectedTeams.Text = "Add Teams";
+            this.btnAddSelectedTeams.UseVisualStyleBackColor = true;
+            this.btnAddSelectedTeams.Click += new System.EventHandler(this.btnAddSelectedTeams_Click);
             // 
             // btnCreateRandomSeason
             // 
@@ -140,11 +158,41 @@
             this.btnCreateRandomSeason.UseVisualStyleBackColor = true;
             this.btnCreateRandomSeason.Click += new System.EventHandler(this.btnCreateRandomSeason_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.dataSeasonMemberships);
+            this.groupBox3.Location = new System.Drawing.Point(445, 118);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(299, 100);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Season Memberships";
+            // 
+            // dataSeasonMemberships
+            // 
+            this.dataSeasonMemberships.AllowUserToAddRows = false;
+            this.dataSeasonMemberships.AllowUserToDeleteRows = false;
+            this.dataSeasonMemberships.AllowUserToOrderColumns = true;
+            this.dataSeasonMemberships.AllowUserToResizeColumns = false;
+            this.dataSeasonMemberships.AllowUserToResizeRows = false;
+            this.dataSeasonMemberships.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataSeasonMemberships.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataSeasonMemberships.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataSeasonMemberships.Location = new System.Drawing.Point(3, 16);
+            this.dataSeasonMemberships.MultiSelect = false;
+            this.dataSeasonMemberships.Name = "dataSeasonMemberships";
+            this.dataSeasonMemberships.ReadOnly = true;
+            this.dataSeasonMemberships.RowHeadersVisible = false;
+            this.dataSeasonMemberships.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataSeasonMemberships.Size = new System.Drawing.Size(293, 81);
+            this.dataSeasonMemberships.TabIndex = 2;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 646);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
@@ -159,6 +207,8 @@
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSeasons)).EndInit();
             this.groupBox6.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSeasonMemberships)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -173,6 +223,9 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btnCreateRandomSeason;
         private System.Windows.Forms.DataGridView dataSeasons;
+        private System.Windows.Forms.Button btnAddSelectedTeams;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridView dataSeasonMemberships;
     }
 }
 

@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System;
 using System.Data.SqlClient;
 
 using League.Data.Sql.Interface;
@@ -6,32 +6,27 @@ using League.Data.Sql.Repository;
 
 namespace League.Data.Sql
 {
-    public class LeagueSqlSession : ILeagueSqlSession
+    public class LeagueSqlSession : ILeagueSqlSession, IDisposable
     {
+        private bool m_disposed;
+
         private SqlConnection m_connection;
         private SqlTransaction m_transaction;
 
         private TeamRepository m_teamRepository;
         private SeasonRepository m_seasonRepository;
-        private SeasonDivisionRepository m_seasonDivisionRepository;
-        private SeasonDivisionMembershipRepository m_seasonDivisionMembershipRepository;
+        private SeasonMembershipRepository m_seasonMembershipRepository;
 
         public LeagueSqlSession(string connectionString)
         {
+            m_disposed = false;
+
             // open database connection
             m_connection = new SqlConnection(connectionString);
             m_connection.Open();
 
             // create explicit transaction
             m_transaction = m_connection.BeginTransaction();
-        }
-
-        ~LeagueSqlSession()
-        {
-            if (m_connection.State != ConnectionState.Closed)
-            {
-                m_connection.Close();
-            }
         }
 
         #region Methods
@@ -80,30 +75,37 @@ namespace League.Data.Sql
             }
         }
 
-        public SeasonDivisionRepository SeasonDivisions
+        public SeasonMembershipRepository SeasonMemberships
         {
             get
             {
-                if (m_seasonDivisionRepository == null)
+                if (m_seasonMembershipRepository == null)
                 {
-                    m_seasonDivisionRepository = new SeasonDivisionRepository(this);
+                    m_seasonMembershipRepository = new SeasonMembershipRepository(this);
                 }
 
-                return m_seasonDivisionRepository;
+                return m_seasonMembershipRepository;
             }
         }
 
-        public SeasonDivisionMembershipRepository SeasonDivisionMemberships
-        {
-            get
-            {
-                if (m_seasonDivisionMembershipRepository == null)
-                {
-                    m_seasonDivisionMembershipRepository = new SeasonDivisionMembershipRepository(this);
-                }
+        #endregion
 
-                return m_seasonDivisionMembershipRepository;
+        #region IDisposable and Cleanup
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposeManagedResources)
+        {
+            if (disposeManagedResources && !m_disposed)
+            {
+                m_connection.Close();
             }
+
+            m_disposed = true;
         }
 
         #endregion

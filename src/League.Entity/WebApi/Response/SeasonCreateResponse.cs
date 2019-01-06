@@ -1,8 +1,8 @@
 ﻿using League.Entity.Database;
 
-namespace League.Entity.WebApi
+namespace League.Entity.WebApi.Response
 {
-    public class SeasonGetByIdResponse
+    public class SeasonCreateResponse
     {
         #region Properties
 

@@ -9,21 +9,8 @@ CREATE TABLE Season (
   DateCreated DATETIME2 NOT NULL DEFAULT GETUTCDATE()
 )
 
-CREATE TABLE SeasonMatch (
-  Id BIGINT PRIMARY KEY IDENTITY(1, 1),
-  TeamOneId BIGINT REFERENCES Team (Id),
-  TeamTwoId BIGINT REFERENCES Team (Id),
-  DateCreated DATETIME2 NOT NULL DEFAULT GETUTCDATE()
-)
-
-CREATE TABLE SeasonDivision (
-  Id BIGINT PRIMARY KEY IDENTITY(1, 1),
-  SeasonId BIGINT REFERENCES Season (Id),
-  DateCreated DATETIME2 NOT NULL DEFAULT GETUTCDATE()
-)
-
-CREATE TABLE SeasonDivisionMembership (
+CREATE TABLE SeasonMembership (
   TeamId BIGINT REFERENCES Team (Id),
-  SeasonDivisionId BIGINT REFERENCES SeasonDivision (Id),
-  PRIMARY KEY (TeamId, SeasonDivisionId)
+  SeasonId BIGINT REFERENCES Season (Id),
+  PRIMARY KEY (TeamId, SeasonId)
 )

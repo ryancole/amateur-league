@@ -1,6 +1,6 @@
-﻿namespace League.Entity.WebApi
+﻿namespace League.Entity.WebApi.Parameters
 {
-    public class TeamCreateRequest
+    public class TeamCreateParameters
     {
         #region Properties
 

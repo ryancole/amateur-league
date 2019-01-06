@@ -16,9 +16,7 @@ namespace League.Data.Sql.Interface
 
         SeasonRepository Seasons { get; }
 
-        SeasonDivisionRepository SeasonDivisions { get; }
-
-        SeasonDivisionMembershipRepository SeasonDivisionMemberships { get; }
+        SeasonMembershipRepository SeasonMemberships { get; }
 
         #endregion
     }
