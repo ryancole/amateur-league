@@ -42,10 +42,10 @@ namespace LeagueApiFunction.Functions
             // execute the desired command and receive the result
             var response = await ExecuteCommand(request.Command, request.SerializedParameters);
 
-            return new OkObjectResult(response);
+            return new JsonResult(response);
         }
 
-        private static async Task<string> ExecuteCommand(LeagueApiRequestCommand command, string parameters)
+        private static async Task<object> ExecuteCommand(LeagueApiRequestCommand command, string parameters)
         {
             if (CommandHandlerMap.ContainsKey(command) == false)
             {
@@ -58,7 +58,7 @@ namespace LeagueApiFunction.Functions
             // execute the handler function, with parameters, and get result object
             var result = await handler(parameters);
 
-            return JsonConvert.SerializeObject(result);
+            return result;
         }
 
         /// <summary>
@@ -70,7 +70,11 @@ namespace LeagueApiFunction.Functions
             { LeagueApiRequestCommand.TeamGetAll, TeamHandlers.GetAll },
 
             { LeagueApiRequestCommand.SeasonCreate, SeasonHandlers.Create },
-            { LeagueApiRequestCommand.SeasonGetAll, SeasonHandlers.GetAll }
+            { LeagueApiRequestCommand.SeasonGetAll, SeasonHandlers.GetAll },
+
+            { LeagueApiRequestCommand.SeasonMembershipCreate, SeasonMembershipHandlers.Create },
+            { LeagueApiRequestCommand.SeasonMembershipGetByTeam, SeasonMembershipHandlers.GetByTeam },
+            { LeagueApiRequestCommand.SeasonMembershipGetBySeason, SeasonMembershipHandlers.GetBySeason }
         };
 
         #endregion

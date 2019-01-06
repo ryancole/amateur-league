@@ -1,12 +1,12 @@
 ﻿namespace League.Entity.Database
 {
-    public class SeasonDivisionMembership
+    public class SeasonMembership
     {
         #region Properties
 
         public long TeamId { get; set; }
 
-        public long SeasonDivisionId { get; set; }
+        public long SeasonId { get; set; }
 
         #endregion
     }

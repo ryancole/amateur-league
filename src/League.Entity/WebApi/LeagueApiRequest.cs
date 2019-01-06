@@ -26,7 +26,11 @@
         TeamCreate,
 
         SeasonGetAll,
-        SeasonCreate
+        SeasonCreate,
+
+        SeasonMembershipCreate,
+        SeasonMembershipGetByTeam,
+        SeasonMembershipGetBySeason
 
         #endregion
     }
