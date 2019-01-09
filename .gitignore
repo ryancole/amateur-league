@@ -1,8 +1,2 @@
-.vs/
-
-bin/
-obj/
-debug/
-
-packages/
+dist/
 node_modules/

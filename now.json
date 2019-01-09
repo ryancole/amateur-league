@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "packages/api/dist/lambdas/team/*.js", "use": "@now/node" }
+  ]
+}
