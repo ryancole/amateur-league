@@ -1,6 +1,4 @@
-import { ServerResponse } from "http";
-
-export default function JsonResponse(response: ServerResponse, body: object) {
+export default function JsonResponse(response, body) {
   // convert our body to json
   const data = JSON.stringify(body);
 
