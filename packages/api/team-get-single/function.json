@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json.schemastore.org/function",
+  "bindings": [
+    {
+      "name": "req",
+      "type": "httpTrigger",
+      "route": "team/{id:int}",
+      "methods": ["get"],
+      "authLevel": "anonymous",
+      "direction": "in"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}

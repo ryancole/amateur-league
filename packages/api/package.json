@@ -1,0 +1,11 @@
+{
+  "name": "@ryancole/league-api",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "start": "func host start"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^2.3.199"
+  }
+}
