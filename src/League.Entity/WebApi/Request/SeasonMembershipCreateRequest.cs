@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace League.Entity.WebApi.Parameters
+namespace League.Entity.WebApi.Request
 {
-    public class SeasonMembershipCreateParameter
+    public class SeasonMembershipCreateRequest
     {
         #region Properties
 

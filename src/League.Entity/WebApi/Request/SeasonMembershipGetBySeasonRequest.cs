@@ -1,6 +1,6 @@
-﻿namespace League.Entity.WebApi.Parameters
+﻿namespace League.Entity.WebApi.Request
 {
-    public class SeasonMembershipGetBySeasonParameter
+    public class SeasonMembershipGetBySeasonRequest
     {
         #region Properties
 
