@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "League.Data.Sql", "League.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueAdminTool", "LeagueAdminTool\LeagueAdminTool.csproj", "{DD60E7FE-B347-481F-8267-4316D55FEE6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueApiFunction", "LeagueApiFunction\LeagueApiFunction.csproj", "{03DF8821-E3EF-4810-B0DF-B991C5D7B537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeagueApiFunction", "LeagueApiFunction\LeagueApiFunction.csproj", "{03DF8821-E3EF-4810-B0DF-B991C5D7B537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
