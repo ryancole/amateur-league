@@ -6,68 +6,75 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using League.Entity.WebApi;
+using League.Entity.WebApi.Request;
+using League.Entity.WebApi.Response;
 
 namespace LeagueAdminTool.Utility
 {
     public static class WebApiClient
     {
-        private static readonly Uri m_url;
         private static readonly HttpClient m_client;
 
         static WebApiClient()
         {
-            m_url = new Uri(ConfigurationManager.AppSettings["api"]);
             m_client = new HttpClient();
+            m_client.BaseAddress = new Uri(ConfigurationManager.AppSettings["api"]);
         }
 
         #region Methods
 
-        public static async Task<Out> SubmitCommand<Out>(LeagueApiRequestCommand command)
+        private static async Task<string> PostJsonAsync(string url, object data = null)
         {
-            var request = new LeagueApiRequest
-            {
-                Command = command
-            };
+            // serialize our payload data to json string
+            var serialized = JsonConvert.SerializeObject(data);
 
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            };
+            // build json payload for request
+            var requestContent = new StringContent(serialized, Encoding.UTF8, "application/json");
 
-            var content = new StringContent(JsonConvert.SerializeObject(request, settings), Encoding.UTF8, "application/json");
-
-            var response = await m_client.PostAsync(m_url, content);
+            // actually dispatch the http request
+            var response = await m_client.PostAsync(url, requestContent);
 
             response.EnsureSuccessStatusCode();
 
-            var body = await response.Content.ReadAsStringAsync();
+            // read response content to string
+            var responseContent = await response.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<Out>(body);
+            return responseContent;
         }
 
-        public static async Task<Out> SubmitCommand<In, Out>(LeagueApiRequestCommand command, In parameters = null) where In : class
+        public static async Task<TeamCreateResponse> CreateTeamAsync(TeamCreateRequest request)
         {
-            var request = new LeagueApiRequest
-            {
-                Command = command,
-                SerializedParameters = parameters == null ? null : JsonConvert.SerializeObject(parameters)
-            };
+            var response = await PostJsonAsync("team", request);
 
-            var settings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            };
+            return JsonConvert.DeserializeObject<TeamCreateResponse>(response);
+        }
 
-            var content = new StringContent(JsonConvert.SerializeObject(request, settings), Encoding.UTF8, "application/json");
+        public static async Task<SeasonCreateResponse> CreateSeasonAsync()
+        {
+            var response = await PostJsonAsync("season");
 
-            var response = await m_client.PostAsync(m_url, content);
+            return JsonConvert.DeserializeObject<SeasonCreateResponse>(response);
+        }
 
-            response.EnsureSuccessStatusCode();
+        public static async Task<TeamGetAllResponse> GetAllTeamsAsync()
+        {
+            var response = await m_client.GetStringAsync("team");
 
-            var body = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TeamGetAllResponse>(response);
+        }
 
-            return JsonConvert.DeserializeObject<Out>(body);
+        public static async Task<SeasonGetAllResponse> GetAllSeasonsAsync()
+        {
+            var response = await m_client.GetStringAsync("season");
+
+            return JsonConvert.DeserializeObject<SeasonGetAllResponse>(response);
+        }
+
+        public static async Task<SeasonMembershipCreateResponse> CreateSeasonMembershipsAsync(SeasonMembershipCreateRequest request)
+        {
+            var response = await PostJsonAsync("season-membership", request);
+
+            return JsonConvert.DeserializeObject<SeasonMembershipCreateResponse>(response);
         }
 
         #endregion

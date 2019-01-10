@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Microsoft.Azure.WebJobs;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ using League.Entity.WebApi.Request;
 using League.Entity.WebApi.Response;
 using League.Entity.Database;
 
-namespace LeagueApiFunction.Functions.Teams
+namespace LeagueApiFunction.Functions.SeasonMemberships
 {
     public static class Create
     {
@@ -27,8 +28,8 @@ namespace LeagueApiFunction.Functions.Teams
 
         #region Methods
 
-        [FunctionName("TeamCreate")]
-        public static async Task<IActionResult> Run([HttpTrigger("POST", Route = "team")] HttpRequest req, ILogger log)
+        [FunctionName("SeasonMembershipCreate")]
+        public static async Task<IActionResult> Run([HttpTrigger("POST", Route = "season-membership")] HttpRequest req, ILogger log)
         {
             var body = string.Empty;
 
@@ -42,20 +43,24 @@ namespace LeagueApiFunction.Functions.Teams
                 return new BadRequestResult();
             }
 
+            var deserialized = JsonConvert.DeserializeObject<SeasonMembershipCreateRequest>(body);
+
             using (var session = new LeagueSqlSession(connectionString))
             {
-                var deserialized = JsonConvert.DeserializeObject<TeamCreateRequest>(body);
+                var memberships = new List<SeasonMembership>();
 
-                var team = await session.Teams.CreateAsync(new Team
+                foreach (var team in deserialized.TeamIds)
                 {
-                    Name = deserialized.Name
-                });
+                    var membership = await session.SeasonMemberships.CreateAsync(team, deserialized.SeasonId);
+
+                    memberships.Add(membership);
+                }
 
                 session.Commit();
 
-                var response = new TeamCreateResponse
+                var response = new SeasonMembershipCreateResponse
                 {
-                    Team = team
+                    SeasonMemberships = memberships
                 };
 
                 return new JsonResult(response);

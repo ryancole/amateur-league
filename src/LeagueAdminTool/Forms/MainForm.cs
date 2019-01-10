@@ -4,8 +4,8 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 using League.Entity.WebApi;
+using League.Entity.WebApi.Request;
 using League.Entity.WebApi.Response;
-using League.Entity.WebApi.Parameters;
 using League.Entity.Database;
 
 using LeagueAdminTool.Utility;
@@ -74,7 +74,7 @@ namespace LeagueAdminTool.Forms
 
         private async void RefreshSeasonMemberships(Season season)
         {
-            var request = new SeasonMembershipGetBySeasonParameter
+            var request = new SeasonMembershipGetBySeasonRequest
             {
                 SeasonId = season.Id
             };
@@ -88,19 +88,19 @@ namespace LeagueAdminTool.Forms
         {
             foreach (var season in seasons)
             {
-                var request = new SeasonMembershipCreateParameter
+                var request = new SeasonMembershipCreateRequest
                 {
                     TeamIds = teams.Select(m => m.Id),
                     SeasonId = season.Id
                 };
 
-                await WebApiClient.SubmitCommand<SeasonMembershipCreateParameter, SeasonMembershipCreateResponse>(LeagueApiRequestCommand.SeasonMembershipCreate, request);
+                await WebApiClient.CreateSeasonMembershipsAsync(request);
             }
         }
 
         private async void RefreshTeams()
         {
-            var teams = await WebApiClient.SubmitCommand<TeamGetAllResponse>(LeagueApiRequestCommand.TeamGetAll);
+            var teams = await WebApiClient.GetAllTeamsAsync();
 
             m_teams = teams.Teams;
             dataTeams.DataSource = m_teams;
@@ -108,7 +108,7 @@ namespace LeagueAdminTool.Forms
 
         private async void RefreshSeasons()
         {
-            var seasons = await WebApiClient.SubmitCommand<SeasonGetAllResponse>(LeagueApiRequestCommand.SeasonGetAll);
+            var seasons = await WebApiClient.GetAllSeasonsAsync();
 
             m_seasons = seasons.Seasons;
             dataSeasons.DataSource = m_seasons;
@@ -116,19 +116,19 @@ namespace LeagueAdminTool.Forms
 
         private async void CreateRandomSeason()
         {
-            var response = await WebApiClient.SubmitCommand<SeasonCreateResponse>(LeagueApiRequestCommand.SeasonCreate);
+            var response = await WebApiClient.CreateSeasonAsync();
 
             RefreshSeasons();
         }
 
         private async void CreateRandomTeam()
         {
-            var request = new TeamCreateParameters
+            var request = new TeamCreateRequest
             {
                 Name = RandomWord.Generate(8)
             };
 
-            var response = await WebApiClient.SubmitCommand<TeamCreateParameters, TeamCreateResponse>(LeagueApiRequestCommand.TeamCreate, request);
+            var response = await WebApiClient.CreateTeamAsync(request);
 
             RefreshTeams();
         }
