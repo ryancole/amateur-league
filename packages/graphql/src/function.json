@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json.schemastore.org/function",
+  "disabled": false,
+  "scriptFile": "../lib/index.js",
+  "bindings": [
+    {
+      "name": "req",
+      "type": "httpTrigger",
+      "route": "graphql",
+      "methods": ["post"],
+      "authLevel": "anonymous",
+      "direction": "in"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}

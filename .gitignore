@@ -1,8 +1,4 @@
-.vs/
-
-bin/
-obj/
-debug/
-
-packages/
+lib/
 node_modules/
+
+local.settings.json
