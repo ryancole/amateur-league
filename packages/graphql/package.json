@@ -8,8 +8,12 @@
   },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
+    "@types/graphql": "^14.0.4",
     "@types/node": "^10.12.18",
     "azure-functions-core-tools": "^2.3.199",
     "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "graphql": "^14.0.2"
   }
 }
