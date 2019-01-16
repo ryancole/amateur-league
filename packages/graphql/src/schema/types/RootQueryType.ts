@@ -1,8 +1,15 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLList } from "graphql";
+
+import TeamType from "./TeamType";
+
+import GetAllTeams from "../../database/team/get-all";
 
 export default new GraphQLObjectType({
   name: "RootQuery",
   fields: {
-    hello: { type: GraphQLString, resolve: () => "hello!!!!" }
+    teams: {
+      type: GraphQLList(TeamType),
+      resolve: GetAllTeams
+    }
   }
 });
