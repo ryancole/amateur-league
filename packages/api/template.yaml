@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  TeamGetAllFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lib/
+      Handler: team.getAll
+      Runtime: nodejs8.10
+      Events:
+        TeamGetAllRequest:
+          Type: Api
+          Properties:
+            Path: /team
+            Method: get
