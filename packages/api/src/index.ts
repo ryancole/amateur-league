@@ -5,13 +5,18 @@ export const handler: Handler = async (event, context) => {
   const body = JSON.parse(event.body);
 
   // the user specifies which command they'd like to query
-  const { command } = body;
+  const command: string = body.command;
 
-  // we can now get the handler for thr requested command
-  const commandHandler = commands[command];
+  // given the command name, we can determine the code path to load
+  const commandModulePath = commands[command];
+
+  // load up the command module
+  const commandModule = require(commandModulePath).default;
+
+  console.log(commandModule);
 
   return {
-    body: JSON.stringify(event),
+    body: "woot",
     headers: { "Content-Type": "application/json" }
   };
 };
