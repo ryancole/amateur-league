@@ -1,11 +1,13 @@
 {
+  "$schema": "http://json.schemastore.org/function",
   "disabled": false,
+  "scriptFile": "../lib/index.js",
   "bindings": [
     {
       "name": "req",
       "type": "httpTrigger",
-      "route": "team",
-      "methods": ["get"],
+      "route": "query",
+      "methods": ["post"],
       "authLevel": "anonymous",
       "direction": "in"
     },
