@@ -13,5 +13,5 @@ Start-Process `
 
 Start-Process `
   -FilePath "sam" `
-  -ArgumentList "local start-api --template template.json" `
+  -ArgumentList "local start-api" `
   -WorkingDirectory $functionsApplicationBuildPath
