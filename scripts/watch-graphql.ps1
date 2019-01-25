@@ -1,4 +1,4 @@
-$functionsApplicationBuildPath = Resolve-Path "$($PSScriptRoot)\..\packages\api"
+$functionsApplicationBuildPath = Resolve-Path "$($PSScriptRoot)\..\packages\graphql"
 
 Start-Process `
   -FilePath "npm" `

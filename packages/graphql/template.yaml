@@ -1,0 +1,18 @@
+Transform: AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: "2010-09-09"
+
+Globals:
+  Function:
+    Runtime: nodejs8.10
+
+Resources:
+  GraphqlFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lib/index.handler
+      Events:
+        PostRequest:
+          Type: Api
+          Properties:
+            Path: "/graphql"
+            Method: post
