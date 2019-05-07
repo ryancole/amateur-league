@@ -1,4 +1,5 @@
 lib/
+data/
 node_modules/
 
 local.settings.json
